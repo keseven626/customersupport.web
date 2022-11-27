@@ -219,13 +219,8 @@ async def email_verification(request: Request, token: str, db: Session = Depends
             "data" : f"Hello {user.first_name}, your account has been successfully verified"}
 
 
-<<<<<<< Updated upstream
 @app.patch("/user/update/{user_id}", summary = "update user details", response_model=schema.user_update, tags=['users'])
 def update_user(user: schema.user_update, user_id: int, db:Session=_fastapi.Depends(get_db)):
-=======
-@app.patch("/api/user/update/{user_id}", )
-def update_user(user: schema.user_update, user_id: int, db: Session = Depends(get_db)):
->>>>>>> Stashed changes
      return crud.update_user(db=db, user=user, user_id=user_id)
 
 @app.post("/tryForFree")
