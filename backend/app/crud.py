@@ -43,10 +43,10 @@ def create_user(db: Session, user: schema.User):
 
 def update_user(db: Session, user: schema.user_update, user_id: int):
     # Getting the current user
-    db_user = get_user(
+    db_user: user =  get_user(
         db = db,
         user_id=user_id
-        )
+    )
     if not db_user:
         raise HTTPException(status_code=404, detail="user not found")
     user_data = user.dict(exclude_unset=True)
@@ -55,7 +55,7 @@ def update_user(db: Session, user: schema.user_update, user_id: int):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    return db_user
+    return {'message': "Data Updated successfully"}
 
 def get_audio(db: Session, audio_id: int):
     return db.query(models.Audio).filter(models.Audio.id == audio_id).first()
@@ -157,3 +157,4 @@ def get_user_profile(db: Session, user_id: int):
 
 def get_user_profile_by_email(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
+
