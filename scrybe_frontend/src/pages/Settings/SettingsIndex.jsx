@@ -5,16 +5,23 @@ import PersonalInformation from "./SettingsPageSubPages/PersonalInformation/Pers
 import AccountSetting from "./SettingsPageSubPages/AccountSettings/AccountSettings";
 import Notification from "./SettingsPageSubPages/Notifications/NotificationSettings";
 
+import { AuthContextProvider } from "./AuthContext";
+
 function SettingsIndex() {
   return (
-    <div className="Index">
-      <Routes>
-        <Route path="/" element={<MainPage />}></Route>
-        <Route path="/personal-information" element={<PersonalInformation />} />
-        <Route path="/account-security" element={<AccountSetting />} />
-        <Route path="/notification" element={<Notification />} />
-      </Routes>
-    </div>
+    <AuthContextProvider>
+      <div className="Index">
+        <Routes>
+          <Route path="/" element={<MainPage />}></Route>
+          <Route
+            path="/personal-information"
+            element={<PersonalInformation />}
+          />
+          <Route path="/account-security" element={<AccountSetting />} />
+          <Route path="/notification" element={<Notification />} />
+        </Routes>
+      </div>
+    </AuthContextProvider>
   );
 }
 

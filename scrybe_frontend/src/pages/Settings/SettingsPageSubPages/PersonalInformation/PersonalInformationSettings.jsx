@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import PersonalInfo from "./PersonalInformationSettings.module.scss";
 import RedirectNav from "../../Components/SettingsPageRedirectNav/SettingsPageRedirectNav";
 import ProfilePic from "../../assets/images/Pic.png";
@@ -7,11 +7,10 @@ import BlackEditPen from "../../assets/icons/edit.svg";
 import { Link } from "react-router-dom";
 import Footer from "../../../../components/footer/index";
 
+import AuthContext from "../../AuthContext";
+
 const PersonalInformation = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    window.scrollTo(0, 0);
-  };
+  const { userData, setUserData, handleSubmit } = useContext(AuthContext);
 
   return (
     <>
@@ -39,22 +38,51 @@ const PersonalInformation = () => {
               <div className={PersonalInfo.row}>
                 <div className={PersonalInfo.formGroup}>
                   <label htmlFor="">First name</label>
-                  <input type="text" placeholder="Doe" />
+                  <input
+                    type="text"
+                    placeholder="Doe"
+                    name="first_name"
+                    onChange={(e) =>
+                      setUserData({ ...userData, first_name: e.target.value })
+                    }
+                    defaultValue={userData.first_name}
+                  />
                 </div>
                 <div className={PersonalInfo.formGroup}>
                   <label htmlFor="">Last name</label>
-                  <input type="text" placeholder="John" />
+                  <input
+                    type="text"
+                    placeholder="John"
+                    onChange={(e) =>
+                      setUserData({ ...userData, last_name: e.target.value })
+                    }
+                    defaultValue={userData.last_name}
+                  />
                 </div>
               </div>
               <div className={PersonalInfo.formGroup}>
                 <label htmlFor="">Phone number</label>
-                <input type="tel" placeholder="+23470984995736" />
+                <input
+                  type="tel"
+                  placeholder="+23470984995736"
+                  onChange={(e) =>
+                    setUserData({ ...userData, phone_number: e.target.value })
+                  }
+                  defaultValue={userData.phone_number}
+                />
               </div>
               <div
                 className={`${PersonalInfo.formGroup} ${PersonalInfo.editInput}`}
               >
                 <label htmlFor="">Email address</label>
-                <input type="email" placeholder="test@email.com" />
+                <input
+                  type="email"
+                  placeholder="test@email.com"
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
+                  defaultValue={userData.email}
+                />
                 <div className={PersonalInfo.verified}>
                   {/* <p className={PersonalInfo.message}>{isVerified ? "Verified" : "Unverified"}</p> */}
                 </div>
@@ -67,7 +95,7 @@ const PersonalInformation = () => {
                 </Link>
               </div>
               <div className={`${PersonalInfo.formSubmit} formSubmit`}>
-                <button onClick={handleSubmit}>Save changes</button>
+                <button onClick={handleSubmit(userData)}>Save changes</button>
                 <Link to="">Verify email</Link>
               </div>
             </form>

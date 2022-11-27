@@ -1,5 +1,5 @@
 
-from fastapi import Depends, FastAPI, UploadFile, File, status, HTTPException, Form
+from fastapi import Depends, FastAPI, UploadFile, File, status, HTTPException, Form, Path
 from fastapi_pagination import Page, paginate, Params
 from fastapi.middleware.cors import CORSMiddleware
 from routers.sentiment import sentiment
@@ -22,6 +22,7 @@ from emails import send_email, verify_token
 from audio import audio_details
 from starlette.requests import Request
 import fastapi as _fastapi
+from fastapi.encoders import jsonable_encoder
 
 import shutil
 import os
@@ -218,8 +219,13 @@ async def email_verification(request: Request, token: str, db: Session = Depends
             "data" : f"Hello {user.first_name}, your account has been successfully verified"}
 
 
+<<<<<<< Updated upstream
 @app.patch("/user/update/{user_id}", summary = "update user details", response_model=schema.user_update, tags=['users'])
 def update_user(user: schema.user_update, user_id: int, db:Session=_fastapi.Depends(get_db)):
+=======
+@app.patch("/api/user/update/{user_id}", )
+def update_user(user: schema.user_update, user_id: int, db: Session = Depends(get_db)):
+>>>>>>> Stashed changes
      return crud.update_user(db=db, user=user, user_id=user_id)
 
 @app.post("/tryForFree")

@@ -25,11 +25,6 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
-class user_update(BaseModel):
-    firstname: str
-    lastname: str
-    email: EmailStr
-
 class JobBase(BaseModel):
     job_status: str
 
@@ -131,10 +126,17 @@ class Recordings(BaseModel):
     class Config:
         orm_mode = True
 
+class user_update(BaseModel):
+    first_name: str
+    last_name: str
+    phone_number: str
+    company_address: str
+    email: str
+ 
 class UserProfile(BaseModel):
     id: str
     phone_number: str
     company_address: str
     email: str
-    company_id: int
+    company_id: int 
     api_key: UUID = uuid1()
